@@ -1,61 +1,66 @@
-/* Reset and essentials */
- *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
- }
+/* === RESET & BASE STYLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
- body {
-    font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    line-height: 1.6;
-    background-color: #fafafa;
- }
+/* General body font and background setup */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background-color: #fafafa;
+}
 
- a {
-    text-decoration: none;
- }
+/* Remove default link styles */
+a {
+  text-decoration: none;
+}
 
- ul {
-    list-style: none;
- }
+/* Remove default list styles */
+ul {
+  list-style: none;
+}
 
- /* Navbar */
- .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
- }
+/* === NAVBAR === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
- .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #004a99;
- }
+/* Logo style */
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #004a99;
+}
 
- .nav-links li {
-    display: inline-block;
-    margin-left: 25px;
- }
+/* Navigation links styling */
+.nav-links li {
+  display: inline-block;
+  margin-left: 25px;
+}
 
- .nav-links a {
-    color: #004a99;
-    font-weight: bold;
-    transition: color 0.3s ease;
- }
+.nav-links a {
+  color: #004a99;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
 
- .nav-links a:hover {
-   color: #ff6600;
- }
+.nav-links a:hover {
+  color: #ff6600;
+}
 
- /* Hero */
- .hero {
+/* === HERO SECTION === */
+.hero {
   background: linear-gradient(to right, #e6f0ff, #fff);
   min-height: 90vh;
   display: flex;
@@ -64,6 +69,7 @@
   padding: 60px 20px;
 }
 
+/* Hero content layout */
 .hero-content {
   display: flex;
   align-items: center;
@@ -73,6 +79,7 @@
   flex-wrap: wrap;
 }
 
+/* Left text block */
 .hero-text {
   flex: 1;
   min-width: 300px;
@@ -80,6 +87,7 @@
   animation: fadeInUp 1s ease-in-out;
 }
 
+/* Hero heading */
 .hero-text h1 {
   font-size: 2.8rem;
   color: #002a5c;
@@ -90,12 +98,14 @@
   color: #ff6600;
 }
 
+/* Hero paragraph */
 .hero-text p {
   font-size: 1.2rem;
   margin-bottom: 25px;
   color: #555;
 }
 
+/* Right image block */
 .hero-image {
   flex: 1;
   min-width: 250px;
@@ -109,6 +119,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Button styling */
 .btn {
   background: #ff6600;
   color: #fff;
@@ -124,19 +135,19 @@
   transform: translateY(-2px);
 }
 
+/* Fade-in animation for hero text */
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
- @keyframes fadeInUp {
-   0% {
-      transform: translateY(40px);
-      opacity: 0;
-   }
-   100% {
-      transform: translateY(0);
-      opacity: 1;
-   }
- }
-
- /* How it Works */
+/* === HOW IT WORKS SECTION === */
 .steps {
   padding: 80px 20px;
   background: #f1f7ff;
@@ -149,6 +160,7 @@
   margin-bottom: 40px;
 }
 
+/* Step blocks layout */
 .step-container {
   display: flex;
   justify-content: center;
@@ -183,7 +195,7 @@
   font-size: 1.2rem;
 }
 
-/* Testimonials */
+/* === TESTIMONIALS === */
 .testimonials {
   padding: 80px 20px;
   text-align: center;
@@ -211,7 +223,7 @@
   color: #333;
 }
 
-/* Help Center */
+/* === HELP CENTER SECTION === */
 .help-center {
   background: #f7faff;
   padding: 60px 30px;
@@ -237,7 +249,7 @@
   color: #ff6600;
 }
 
-/* Footer */
+/* === FOOTER SECTION === */
 footer {
   background: #004a99;
   color: #fff;
@@ -251,10 +263,12 @@ footer {
   flex-wrap: wrap;
 }
 
-.footer-content .contact, .footer-content .social {
+.footer-content .contact,
+.footer-content .social {
   max-width: 300px;
 }
 
+/* Social icons */
 .social a {
   color: #fff;
   margin-right: 15px;
@@ -266,9 +280,12 @@ footer {
   color: #ffcc00;
 }
 
+/* Bottom bar */
 .footer-bottom {
   text-align: center;
   padding: 15px;
   font-size: 0.9rem;
   background: #003366;
 }
+
+

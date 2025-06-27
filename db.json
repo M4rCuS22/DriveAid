@@ -1,0 +1,40 @@
+{
+  "rescues": [
+    {
+      "id": "1",
+      "issue": "Flat Tire",
+      "status": "Completed",
+      "date": "2025-06-25T09:00:00Z"
+    },
+    {
+      "id": "2",
+      "issue": "Battery Failure",
+      "status": "Completed",
+      "date": "2025-06-26T10:30:00Z"
+    },
+    {
+      "id": "3",
+      "issue": "Engine Overheat",
+      "status": "Cancelled",
+      "date": "2025-06-20T14:15:00Z"
+    },
+    {
+      "id": "4",
+      "issue": "Stuck in Mud",
+      "status": "Completed",
+      "date": "2025-06-19T11:50:00Z"
+    },
+    {
+      "id": "5",
+      "issue": "Locked Out",
+      "status": "Completed",
+      "date": "2025-06-18T16:45:00Z"
+    },
+    {
+      "id": "7e4a",
+      "issue": "Battery Failure",
+      "status": "In Progress",
+      "date": "2025-06-27T18:52:46.877Z"
+    }
+  ]
+}

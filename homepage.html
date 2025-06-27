@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DriveAid - Roadside Assistance</title>
-    <link rel="stylesheet" href="css/homepage.css"/>
+    <link rel="stylesheet" href="homepage.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -74,16 +74,29 @@
             </div>
         </section>
 
-        <section id="help-center" class="help-center hidden">
-            <h2>Help Center</h2>
-            <ul>
-                <li><strong>Forgot your password?</strong> Click "Reset Password" on the login page.</li>
-                <li><strong>Can't request rescue?</strong> Make sure you're logged in online.</li>
-                <li><strong>Need emergency help?</strong> Contact us directly:</li>
-            </ul>
-            <p>Email: <a href="mailto:support@driveaid.com">Support@driveaid.com</a></p>
-            <p>WhatsApp: <a href="https://wa.me/254712345678" target="_blank">+254 712 345 678</a></p>
-        </section>
+        <section id="rescue-request" class="rescue-section">
+  <h2>Request Rescue</h2>
+  <form id="rescue-form">
+    <label for="issue">Select Issue:</label>
+    <select id="issue" required>
+      <option value="">-- Choose an issue --</option>
+      <option value="Flat Tire">Flat Tire</option>
+      <option value="Battery Failure">Battery Failure</option>
+      <option value="Engine Overheat">Engine Overheat</option>
+      <option value="Stuck in Mud">Stuck in Mud</option>
+      <option value="Locked Out">Locked Out</option>
+    </select>
+    <button type="submit">🚨 Request Help</button>
+  </form>
+  <p id="rescue-status" class="rescue-status"></p>
+</section>
+
+<section id="rescue-history" class="rescue-section">
+  <h2>Rescue History</h2>
+  <input type="text" id="search-input" placeholder="Search by issue...">
+  <ul id="rescue-list"></ul>
+</section>
+
 
     </main>
 
@@ -106,36 +119,95 @@
     </footer>
     
     <script>
-        const helpLink = document.querySelector('a[href="#help-center"]');
-        const helpSection = document.querySelector("#help-center");
+  // Set the base API URL (make sure json-server is running on port 3001)
+  const API_URL = "http://localhost:3001/rescues";
 
-        helpLink?.addEventListener("click", function (e) {
-            e.preventDefault();
-            helpSection?.classList.remove("hidden");
-            helpSection.scrollIntoView({ behavior: "smooth"});
-        });
-    </script>
+  // Select DOM elements we'll interact with
+  const form = document.getElementById("rescue-form");
+  const issueSelect = document.getElementById("issue");
+  const rescueStatus = document.getElementById("rescue-status");
+  const rescueList = document.getElementById("rescue-list");
+  const searchInput = document.getElementById("search-input");
 
-    <script>
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
+  // Load all rescue history from API on page load
+  async function loadRescues() {
+    const res = await fetch(API_URL); // Fetch existing rescue records
+    const data = await res.json(); // Convert response to JSON
+    displayRescues(data); // Display the data
+  }
 
-                const map = L.map('map').setView([lat, lng], 13);
+  // Display all rescues in a list element
+  function displayRescues(data) {
+    rescueList.innerHTML = ""; // Clear the list
+    data.forEach(rescue => {
+      const li = document.createElement("li"); // Create list item
+      li.innerHTML = `<strong>${rescue.issue}</strong> - ${rescue.status} - ${new Date(rescue.date).toLocaleDateString()}`;
+      rescueList.appendChild(li); // Add to the list
+    });
+  }
 
-                L.titleLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
+  // Handle rescue form submission
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault(); // Stop page reload
 
-                L.marker([lat, lng]).addTo(map)
-                .bindPopup("You are here.")
-                .openPopup();
-            });
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    </script>
+    const issue = issueSelect.value;
+    if (!issue) {
+      alert("Please select an issue first.");
+      return;
+    }
 
+    // Indicate rescue is being processed
+    rescueStatus.textContent = "⏳ Sending help...";
+    form.querySelector("button").disabled = true;
+
+    // Prepare new rescue object
+    const newRescue = {
+      issue,
+      status: "In Progress",
+      date: new Date().toISOString()
+    };
+
+    // POST the rescue to the server
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newRescue)
+    });
+
+    const savedRescue = await res.json();
+
+    // Simulate rescue completion after 3 seconds
+    setTimeout(async () => {
+      // Update rescue status to "Completed"
+      await fetch(`${API_URL}/${savedRescue.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "Completed" })
+      });
+
+      // Show status and refresh list
+      rescueStatus.textContent = "✅ Rescue completed!";
+      form.reset();
+      form.querySelector("button").disabled = false;
+      loadRescues();
+    }, 3000);
+  });
+
+  // Filter rescue history as user types
+  searchInput.addEventListener("input", async function () {
+    const query = this.value.toLowerCase(); // Get search input
+    const res = await fetch(API_URL); // Get all rescues
+    const data = await res.json(); 
+    const filtered = data.filter(item =>
+      item.issue.toLowerCase().includes(query)
+    ); // Filter based on search term
+    displayRescues(filtered); // Display filtered results
+  });
+
+  // Load data initially when page loads
+  loadRescues();
+</script>
 </body>
 </html>
