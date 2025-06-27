@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveAid - Roadside Assistance</title>
+    <link rel="stylesheet" href="css/homepage.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">DriveAid</div>
+            <ul class="nav-links">
+                <li><a href="#">Home<a></li>
+                <li><a href="#how-it-works">How it Works</a></li>
+                <li><a href="#help-center">Help Center</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+        <section class="hero">
+           <div class="hero-content">
+            <div class="hero-text">
+                <h1><i class="fas fa-car-crash"></i> Stranded? <span class="highlight">DriveAid</span> is Here.</h1>
+                <p>Fast, reliable roadside help at your fingertips - anytime, anywhere.</p>
+                <a href="#help-center" class="btn">Request Help Now</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://media.istockphoto.com/id/146759051/photo/businessman-pushing-a-car.webp?a=1&b=1&s=612x612&w=0&k=20&c=efUDEDnPbJaedMbhHH_DL-1hnBeyjIRdEzzfrMNFr3c=" alt="Driver stranded on road" />
+            </div>
+           </div>
+        </section>
+    </header>
+
+    <main>
+        <section id="how-it-works" class="steps">
+            <h2>How DriveAid Works</h2>
+            <div class="step-container">
+            <div class="step">
+                <i class="fas fa-mobil-alt"></i>
+                <h3>1. Request</h3>
+                <p>Tap to submit your location and issue.</p>
+            </div>
+            <div class="step">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>2. Locate</h3>
+                <p>We pinpoint your exact location and dispatch help.</p>
+            </div>
+            <div class="step">
+                <i class="fas fa-tools"></i>
+                <h3>3. Rescue</h3>
+                <p>Our trusted mechanic arrives fast to fix or tow.</p>
+            </div>
+        </section>
+
+        <section id="map-section">
+            <h2>Your current Location</h2>
+            <div id="map" style="height: 400px; margin: 20px 0;"></div>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <h2>What Drivers Say</h2>
+            <div class="testimonial">
+                <p>"DriveAid saved me last night. Super fast and friendly!"</p>
+                <span>- Samuel K.</span>
+            </div>
+            <div class="testimonial">
+                <p>"Professional service-had my car towed in under 15 minutes."</p>
+                <span>- Gabriel M.</span>
+            </div>
+        </section>
+
+        <section id="help-center" class="help-center hidden">
+            <h2>Help Center</h2>
+            <ul>
+                <li><strong>Forgot your password?</strong> Click "Reset Password" on the login page.</li>
+                <li><strong>Can't request rescue?</strong> Make sure you're logged in online.</li>
+                <li><strong>Need emergency help?</strong> Contact us directly:</li>
+            </ul>
+            <p>Email: <a href="mailto:support@driveaid.com">Support@driveaid.com</a></p>
+            <p>WhatsApp: <a href="https://wa.me/254712345678" target="_blank">+254 712 345 678</a></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact">
+                <h4>Contact Us</h4>
+                <p>Email: support@driveaid.com</p>
+                <p>Phone: 1 (800) 123-4567</p>
+            </div>
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 DriveAid. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        const helpLink = document.querySelector('a[href="#help-center"]');
+        const helpSection = document.querySelector("#help-center");
+
+        helpLink?.addEventListener("click", function (e) {
+            e.preventDefault();
+            helpSection?.classList.remove("hidden");
+            helpSection.scrollIntoView({ behavior: "smooth"});
+        });
+    </script>
+
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                const map = L.map('map').setView([lat, lng], 13);
+
+                L.titleLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                L.marker([lat, lng]).addTo(map)
+                .bindPopup("You are here.")
+                .openPopup();
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    </script>
+
+</body>
+</html>

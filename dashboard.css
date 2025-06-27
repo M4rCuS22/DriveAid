@@ -1,0 +1,137 @@
+/* Reset and Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007BFF;
+  padding: 16px 32px;
+  color: white;
+}
+
+.dashboard-header .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.dashboard-header .profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.dashboard-header .profile i {
+  font-size: 24px;
+}
+
+/* Main Dashboard Content */
+.dashboard-content {
+  padding: 30px 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.dashboard-content section {
+  background: white;
+  padding: 20px 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2, h3 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+button#rescueBtn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background-color 0.3s ease;
+}
+
+button#rescueBtn:hover {
+  background-color: #c82333;
+}
+
+ul {
+  padding-left: 20px;
+  list-style: none;
+}
+
+ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Vehicles */
+.vehicles ul {
+  margin-bottom: 10px;
+}
+
+#add-vehicle-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+#add-vehicle-form input {
+  padding: 10px;
+  flex: 1 1 45%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#add-vehicle-form button {
+  padding: 10px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+#add-vehicle-form button:hover {
+  background-color: #218838;
+}
+
+/* Footer */
+.dashboard-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #eee;
+  font-size: 14px;
+}
+
+/* Icons */
+.dashboard-content h3 i {
+  margin-right: 8px;
+  color: #007BFF;
+}

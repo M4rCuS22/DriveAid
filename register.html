@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - DriveAid</title>
+  <link rel="stylesheet" href="css/register.css" />
+</head>
+<body>
+  <div class="register-container">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/743/743131.png" alt="DriveAid Logo" />
+    </div>
+    <h2>Create Your Account</h2>
+    <form id="register-form">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+      <button type="submit">Register</button>
+    </form>
+    <p class="footer-text">
+      Already have an Account? <a href="login.html">Login</a>
+    </p>
+  </div>
+
+  <!-- Popup -->
+  <div id="welcome-popup" class="welcome-popup hidden">
+    <div class="popup-content">
+      <h3>Welcome to DriveAid</h3>
+      <p>You'll be redirected to your dashboard shortly...</p>
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.querySelector("form");
+    const popup = document.getElementById("welcome-popup");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      localStorage.setItem("user", JSON.stringify({ name, email }));
+
+      popup.classList.remove("hidden");
+
+      setTimeout(() => {
+        popup.classList.add("hidden");
+        window.location.href = "dashboard.html";
+      }, 3000);
+    });    
+  </script>
+</body>
+</html>
